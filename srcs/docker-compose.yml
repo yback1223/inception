@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  mariadb:
+    build:
+      context: .
+      dockerfile: requirements/mariadb/Dockerfile
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    networks:
+      - inception
+    volumes:
+      - db-volume:/var/lib/mysql
+    restart: always
+
+volumes:
+  db-volume:
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/${USER}/data/mariadb
+
+networks:
+    inception:
+        driver: bridge
