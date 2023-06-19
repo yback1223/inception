@@ -1,5 +1,9 @@
 FROM debian:buster
 
+# ARG DB_NAME \
+#     DB_USER \
+#     DB_PASS
+
 RUN apt-get update && apt-get install -y mariadb-server mariadb-client
 
 RUN mkdir /var/run/mysqld && chmod 777 /var/run/mysqld
