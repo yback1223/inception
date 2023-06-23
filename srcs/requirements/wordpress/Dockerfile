@@ -1,11 +1,11 @@
-FROM debian:buster
+FROM debian:bullseye
 
 RUN apt-get update
-RUN apt-get -y install php7.3 php-mysqli php-fpm curl
+RUN apt-get -y install php7.4 php7.4-mysqli php7.4-fpm curl
 
 EXPOSE 9000
 
-COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
+COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d
 COPY ./tools /var/www/
 
 RUN chmod +x /var/www/yback_prepare_wp.sh
@@ -14,4 +14,3 @@ RUN chmod +x /var/www/yback_entrypoint.sh
 
 ENTRYPOINT [ "/var/www/yback_entrypoint.sh" ]
 
-CMD ["/usr/sbin/php-fpm7.3", "--nodaemonize"]

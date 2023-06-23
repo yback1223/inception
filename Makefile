@@ -1,16 +1,12 @@
-name = inception
 all:
-	@bash srcs/requirements/wordpress/tools/yback_mkdir.sh
-	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up -d
-
-build:
-	@bash srcs/requirements/wordpress/tools/yback_mkdir.sh
-	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up -d --build
+	@sh ./srcs/requirements/yback_mkdir.sh
+	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up
 
 down:
 	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env down
 
 re:
+	@sh ./srcs/requirements/yback_mkdir.sh
 	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up -d --build
 
 clean: down
@@ -27,3 +23,10 @@ fclean:
 	@sudo rm -rf ~/data/mariadb/*
 
 .PHONY	: all build down re clean fclean
+
+
+
+top:
+	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env top
+
+.PHONY: top
