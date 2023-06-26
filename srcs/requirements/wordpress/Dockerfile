@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 RUN apt-get update
-RUN apt-get -y install php7.4 php7.4-mysqli php7.4-fpm curl
+RUN apt-get -y install php7.4 php7.4-mysqli php7.4-fpm curl sendmail mariadb-client
 
 EXPOSE 9000
 
@@ -13,4 +13,3 @@ RUN chmod +x /var/www/yback_start_wp.sh
 RUN chmod +x /var/www/yback_entrypoint.sh
 
 ENTRYPOINT [ "/var/www/yback_entrypoint.sh" ]
-
