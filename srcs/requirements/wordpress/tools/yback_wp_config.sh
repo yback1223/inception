@@ -1,11 +1,23 @@
+#!/bin/sh
+
+# DB_NAME="yback_wordpress"
+# DB_USER="yback"
+# DB_PASS="123"
+# DB_HOST="mariadb"
+
+DB_NAME="${DB_NAME}"
+DB_USER="${DB_USER}"
+DB_PASS="${DB_PASS}"
+DB_HOST="${DB_HOST}"
+
+cat > /var/www/wp-config.php << "EOF"
 <?php
-define( 'DB_NAME', '${DB_NAME}' );
-define( 'DB_USER', '${DB_USER}' );
-define( 'DB_PASSWORD','${DB_PASS}' );
-define( 'DB_HOST', '${DB_HOST}' );
+define( 'DB_NAME', '$DB_NAME' );
+define( 'DB_USER', '$DB_USER' );
+define( 'DB_PASSWORD', '$DB_PASS' );
+define( 'DB_HOST', '$DB_HOST' );
 define( 'DB_COLLATE', '' );
 
-// 온라인 생성기에서 가져온 시크릿 키
 define('AUTH_KEY',         'DoMD!QO`+)k2So6v.vDc-nN|1bGW$$d3+yC)Rg>zqQRw>AH~#xe _Zp!/[SXq)LV');
 define('SECURE_AUTH_KEY',  ')Z2-G&IlK~!Es(E#gmxL>knp]_<g?M+9Pl,WUcN5s{;-ddjSdoK(-M,P@XdTR6)9');
 define('LOGGED_IN_KEY',    'Vu|Ctz6Cc?^`3C)KlYJ|<}JFO#4#p$zh>ImiYUod!u{|s-GkE&jWp8I2JE77P^ce');
@@ -21,3 +33,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once ABSPATH . 'wp-settings.php';
 ?>
+EOF
+
+chmod 777 /var/www/wp-config.php

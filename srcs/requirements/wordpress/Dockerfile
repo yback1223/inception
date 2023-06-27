@@ -7,9 +7,8 @@ EXPOSE 9000
 
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d
 COPY ./tools /var/www/
+COPY ./tools/yback_to_the_moon.sh /
 
-RUN chmod +x /var/www/yback_prepare_wp.sh
-RUN chmod +x /var/www/yback_start_wp.sh
-RUN chmod +x /var/www/yback_entrypoint.sh
+RUN chmod 777 yback_to_the_moon.sh
 
-ENTRYPOINT [ "/var/www/yback_entrypoint.sh" ]
+CMD [ "./yback_to_the_moon.sh" ]

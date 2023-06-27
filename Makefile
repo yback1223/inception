@@ -1,5 +1,8 @@
 all: up
 
+net:
+	@docker network inspect inception >/dev/null 2>&1 || (echo "Network 'inception' does not exist"; exit 1)
+
 up:
 	@sh ./srcs/requirements/yback_mkdir.sh
 	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up -d --build
