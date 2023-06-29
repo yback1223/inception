@@ -1,16 +1,18 @@
 #!/bin/sh
 
-echo "Starting with DB_HOST: $DB_HOST"
-echo "Starting with DB_NAME: $DB_NAME"
-echo "Starting with DB_USER: $DB_USER"
+echo "Permission 777 open for yback_prepare_wp.sh and yback_start_wp.sh !!!"
 
-
-# chmod +x /var/www/yback_wp_config.sh
 chmod 777 yback_prepare_wp.sh
 chmod 777 yback_start_wp.sh
 
-# bash /var/www/yback_wp_config.sh
+echo "Execute yback_prepare_wp.sh !!!"
+
 ./yback_prepare_wp.sh
+
+echo "Execute yback_start_wp.sh !!!"
+
 ./yback_start_wp.sh
+
+echo "Activate PHP-FPM at foreground !!!"
 
 php-fpm7.4 --nodaemonize
