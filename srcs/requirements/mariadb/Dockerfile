@@ -12,4 +12,3 @@ RUN chmod +x /tmp/init-db.sh
 EXPOSE 3306
 
 CMD ["sh", "-c", "mysqld & sleep 10 && /tmp/init-db.sh && wait $!"]
-
