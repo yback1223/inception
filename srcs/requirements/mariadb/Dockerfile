@@ -12,8 +12,7 @@ RUN chmod +x /init-db.sh
 
 EXPOSE 3306
 
-# MariaDB 서버를 시작하는 CMD
-CMD ["mysqld"]
 
-# 초기화 스크립트를 실행하는 ENTRYPOINT
-ENTRYPOINT ["/init-db.sh"]
+ENTRYPOINT ["mysqld"]
+
+CMD ["/init-db.sh"]

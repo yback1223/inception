@@ -1,10 +1,19 @@
 #!/bin/bash
 set -e
 
-echo "Waiting for MariaDB server to start..."
-while ! mysqladmin ping -h localhost --silent; do
-    sleep 1
-    echo "Waiting for MariaDB server to start..."
+# echo "Waiting for MariaDB server to start..."
+# while ! mysqladmin ping -h localhost --silent; do
+#     sleep 1
+#     echo "Waiting for MariaDB server to start..."
+# done
+
+# Start temporary server
+mysqld_safe --nowatch --datadir=/var/lib/mysql
+
+# Wait for MariaDB to start
+until mysqladmin ping; do
+	sleep 1
+	echo "waiting~"
 done
 
 echo "Creating SQL file !!!"
@@ -19,3 +28,4 @@ FLUSH PRIVILEGES;
 EOF
 
 echo "Created SQL file !!!"
+mysqladmin shutdown
