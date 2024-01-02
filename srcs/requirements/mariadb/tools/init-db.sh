@@ -1,4 +1,11 @@
 #!/bin/bash
+set -e
+
+echo "Waiting for MariaDB server to start..."
+while ! mysqladmin ping -h localhost --silent; do
+    sleep 1
+    echo "Waiting for MariaDB server to start..."
+done
 
 echo "Creating SQL file !!!"
 

@@ -5,6 +5,7 @@ echo "Checking for MariaDB connection !!!"
 i=0
 while ! mysqladmin -h$DB_HOST -u$DB_USER -p$DB_PASS ping >/dev/null 2>&1; do
   sleep 5
+  echo "Still connecting ...."
   i=$(($i+1))
 done
 
