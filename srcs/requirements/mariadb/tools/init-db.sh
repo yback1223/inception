@@ -1,31 +1,19 @@
 #!/bin/bash
 set -e
 
-# echo "Waiting for MariaDB server to start..."
-# while ! mysqladmin ping -h localhost --silent; do
-#     sleep 1
-#     echo "Waiting for MariaDB server to start..."
-# done
-
-# Start temporary server
-mysqld_safe --nowatch --datadir=/var/lib/mysql
-
-# Wait for MariaDB to start
-until mysqladmin ping; do
-	sleep 1
-	echo "waiting~"
-done
-
-echo "Creating SQL file !!!"
-
-cat <<EOF | mysql -u root --password=$DB_ROOT
-USE mysql;
-ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT}';
+if [ ! -d "/var/lib/mysql/$MYSQL_DB" ]; then
+  mysql_install_db --datadir=/var/lib/mysql --auth-root-authentication-method=normal >/dev/null
+  mysqld --bootstrap << EOF
+mysql -u root -e "FLUSH PRIVILEGES; 
+ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT'; 
+FLUSH PRIVILEGES;
 CREATE DATABASE IF NOT EXISTS ${DB_NAME};
 CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASS}';
 GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';
-FLUSH PRIVILEGES;
-EOF
+FLUSH PRIVILEGES;"
 
-echo "Created SQL file !!!"
-mysqladmin shutdown
+echo "MySQL initialization done!"
+EOF
+fi
+
+exec mysqld --datadir=/var/lib/mysql

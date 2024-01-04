@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 volume_path="/home/yback/data"
 wordpress_path="${volume_path}/wordpress"
 mariadb_path="${volume_path}/mariadb"

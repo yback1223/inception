@@ -2,17 +2,16 @@ FROM debian:bullseye
 
 RUN apt-get update && apt-get upgrade
 RUN apt-get install -y mariadb-server
+RUN apt-get install -y mariadb-client
 
-COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+RUN mkdir -p /var/run/mysqld && \
+    chown -R mysql:mysql /var/run/mysqld && \
+    chmod 777 /var/run/mysqld
 
-RUN mkdir -p /var/run/mysqld && chown mysql:mysql /var/run/mysqld
-
-COPY ./tools/init-db.sh /init-db.sh
-RUN chmod +x /init-db.sh
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./tools /
 
 EXPOSE 3306
 
-
-ENTRYPOINT ["mysqld"]
-
-CMD ["/init-db.sh"]
+RUN chmod +x /init-db.sh
+ENTRYPOINT ["/init-db.sh"]
