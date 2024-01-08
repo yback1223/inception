@@ -1,10 +1,7 @@
 #!/bin/bash
+
 set -e
 
-echo $DB_ROOT
-echo $DB_NAME
-echo $DB_USER
-echo $DB_PASS
 
 if [ ! -d "/var/lib/mysql/$DB_NAME" ]; then
   mysql_install_db --datadir=/var/lib/mysql --auth-root-authentication-method=normal >/dev/null

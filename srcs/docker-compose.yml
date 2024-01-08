@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   mariadb:
+    image: mariadb
     build: ./requirements/mariadb
     container_name: mariadb
     env_file: .env
@@ -12,6 +13,7 @@ services:
     restart: always
 
   wordpress:
+    image: wordpress
     build: ./requirements/wordpress
     container_name: wordpress
     env_file: .env
@@ -24,18 +26,19 @@ services:
     restart: always
 
   nginx:
-      build: ./requirements/nginx
-      container_name: nginx
-      env_file: .env
-      depends_on:
-        - wordpress
-      ports:
-        - "443:443"
-      networks:
-        - inception
-      volumes:
-        - wp-volume:/var/www/html/wordpress
-      restart: always
+    image: nginx
+    build: ./requirements/nginx
+    container_name: nginx
+    env_file: .env
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
+    networks:
+      - inception
+    volumes:
+      - wp-volume:/var/www/html/wordpress
+    restart: always
 
 volumes:
   db-volume:

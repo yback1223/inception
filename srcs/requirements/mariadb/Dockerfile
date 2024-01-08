@@ -3,8 +3,6 @@ FROM debian:bullseye
 RUN apt-get update \
        && apt-get upgrade -y \
        && apt-get install -y mariadb-server \
-       && apt-get install mariadb-client \
-       && apt-get install -y vim \
         && rm -rf /var/lib/apt/lists/*
 
 
@@ -21,5 +19,5 @@ EXPOSE 3306
 
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
-ENTRYPOINT ["/init-db.sh"]
+ENTRYPOINT [ "/init-db.sh" ]
 
